@@ -18,7 +18,7 @@
       with_items:
         - "@Development Tools"
         - screen
-        - p7zip
+        #- p7zip #Disabling because no package p7zip was found
         #- julia
   roles:
     - common
@@ -39,8 +39,9 @@
     - jdbc
     - ruby
     - sqitch
-    - r
-    - r-shiny
+    #XXX: Disabling for now since "Install R Packages" results in a compiler error 
+    #- r
+    #- r-shiny
     - nodejs
   post_tasks:
     - name: Stop Shiny Server
@@ -70,7 +71,7 @@
         - xsv
         - gnucobol
         - htop
-        - p7zip
+        #- p7zip
       when: custom_repo
 
     - name: Install Additional Database Automation packages
