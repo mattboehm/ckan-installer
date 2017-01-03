@@ -1,4 +1,5 @@
 ---
+apache_config_dir: "/etc/httpd/conf.d/ckan.conf"
 ckan_install_dir: /ckan
 ckan_venv: "{{ckan_install_dir}}/default"
 ckan_db_name: ckan
