@@ -15,7 +15,7 @@
   when: "{{use_sudo}}"
 
 - debug:
-    msg: "step 2"
+    msg: "step 2: create ckan install dir: {{ckan_install_dir}}"
 
 - name: create CKAN directory
   file:
