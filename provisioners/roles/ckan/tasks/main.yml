@@ -1,5 +1,8 @@
 ---
 # tasks file for ckan
+- debug:
+    msg: "Starting ckan tasks"
+
 - name: Yum install any CKAN dependencies
   yum: name={{ item }} state=present
   with_items:
@@ -11,6 +14,9 @@
   become: yes
   when: "{{use_sudo}}"
 
+- debug:
+    msg: "step 2"
+
 - name: create CKAN directory
   file:
     path="{{ckan_install_dir}}"
@@ -21,12 +27,18 @@
     recurse=yes
   become: "{{use_sudo}}"
 
+- debug:
+    msg: "step 3"
+
 #Make the ckan venv
 - name: make the virtual environment
   shell: "/usr/local/bin/virtualenv $(basename {{ckan_venv}})"
   args:
     creates: "{{ckan_venv}}"
     chdir: "{{ckan_venv}}/.."
+
+- debug:
+    msg: "step 4"
 
 #This version of python throws SNIMissingWarning unless an SNI extension to TLS is available
 - name: pip install ssl extensions
