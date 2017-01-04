@@ -186,10 +186,12 @@ python_dep_packages:
 python_packages:
   - requests
   - cookiecutter
+  - ansible
 
 python3_packages:
   - requests
   - cookiecutter
+  - ansible
 
 #============================#
 ### ELASTICSEARCH SETTINGS ###
