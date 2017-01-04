@@ -2,6 +2,6 @@
 # handlers file for ckan
 - name: restart postgres
   service: name=postgresql-9.4 state=restarted sleep=1
-  when: groups.has_key('local') and inventory_hostname in groups.local and "{{use_sudo}}"
+  when: groups.has_key('local') and inventory_hostname in groups.local and use_sudo
   become: yes
 
