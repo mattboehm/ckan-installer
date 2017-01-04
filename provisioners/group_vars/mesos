@@ -21,6 +21,9 @@ ckan_config_dir: "{{ckan_install_dir}}/config/default"
 ckan_user: vagrant
 ckan_venv: "{{ckan_install_dir}}/default"
 ckan_version_tag: ckan-2.3
+postgres_login_host: "{{lookup('env', 'CKAN_POSTGRES_HOST')}}"
+postgres_port: "{{lookup('env', 'CKAN_POSTGRES_PORT')}}"
+solr_url: "{{lookup('env', 'CKAN_SOLR_URL')}}"
 #jetty_user: solr
 #postgres_login_password: your-super-secure-ckan-password!23
 #solr_user: solr
