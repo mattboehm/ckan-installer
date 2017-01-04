@@ -104,7 +104,7 @@
 - name: set read-only ckan user
   shell: source {{ckan_venv}}/bin/activate && paster --plugin=ckan datastore set-permissions -c {{ckan_config_dir}}/config.ini | sudo -u postgres psql --set ON_ERROR_STOP=1
     chdir="{{ckan_venv}}/src/ckan"
-  when: groups.has_key('local') and inventory_hostname in groups.local
+  when: groups.has_key('local') and inventory_hostname in groups.local and "{{use_sudo}}"
   #when: create_datastore_db|changed or create_datastore_db_user|changed or create_ckan_db|changed or create_ckan_db_user|changed
   notify: restart postgres
 
