@@ -7,5 +7,5 @@
 
 - name: restart ckan apache
   service: name=httpd state=restarted sleep=1
-  when: "{{apache_as_service}}"
+  when: apache_as_service
   become: yes
