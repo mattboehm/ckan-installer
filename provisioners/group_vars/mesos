@@ -31,6 +31,6 @@ solr_url: "{{lookup('env', 'CKAN_SOLR_URL')}}"
 #solr_user: solr
 #solr_user_password: $6$rounds=100000$IGDBTmZvVy2T1Edh$jNd.4ZnMV2woq.O9yDfneeJNDdQ..QDGLW897ymS9zQIiM7qiu40PeRPIioArDQCJOf1qDjV1yeWCjOeI/SFA/
 ckan_custom_plugins:
-  - name: ckanext_cfpb_extrafields ckanext_cfpb_export ckanext_cfpb_import
+  - name: ckanext_cfpb_extrafields #ckanext_cfpb_export ckanext_cfpb_import
     egg_name: ckanext_cfpb_extrafields
     url: https://github.com/cfpb/ckanext-cfpb-extrafields
