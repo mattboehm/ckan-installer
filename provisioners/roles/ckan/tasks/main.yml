@@ -28,7 +28,7 @@
   become: "{{use_sudo}}"
 
 - debug:
-  msg: "step 3 create the virtual env: {{ckan_venv}}"
+    msg: "step 3 create the virtual env: {{ckan_venv}}"
 
 #Make the ckan venv
 - name: make the virtual environment
@@ -38,7 +38,7 @@
     chdir: "{{ckan_venv}}/.."
 
 - debug:
-  msg: "step 4: install requests[security] into virtualenv {{ckan_venv}}"
+    msg: "step 4: install requests[security] into virtualenv {{ckan_venv}}"
 
 - name: check python version
   shell: "{{ckan_venv}}/bin/python --version"
