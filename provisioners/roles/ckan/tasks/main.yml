@@ -55,7 +55,7 @@
   shell: "{{ckan_venv}}/bin/python -m pip install -e git+https://github.com/ckan/ckan.git@{{ckan_version_tag}}#egg=ckan"
 
 - name: pip install CKAN requirements
-  shell: "PATH=\"/usr/pgsql-9.4/bin:$PATH\" {{ckan_venv}}/bin/python -m pip install -r {{ckan_venv}}/src/ckan/requirements.txt"
+  shell: "PATH=\"/usr/pgsql-9.4/bin:/usr/pgsql-9.5/bin:$PATH\" {{ckan_venv}}/bin/python -m pip install -r {{ckan_venv}}/src/ckan/requirements.txt"
 
 - name: check whether plugin has already been cloned
   stat:
