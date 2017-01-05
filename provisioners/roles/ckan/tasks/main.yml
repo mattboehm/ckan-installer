@@ -117,7 +117,7 @@
   notify: restart ckan apache
 
 - name: set read-only ckan user
-  shell: source {{ckan_venv}}/bin/activate && paster --plugin=ckan datastore set-permissions -c {{ckan_config_dir}}/config.ini | sudo -u postgres psql --set ON_ERROR_STOP=1
+  shell: source {{ckan_venv}}/bin/activate && {{ckan_venv}}/bin/python {{ckan_venv}}/bin/paster --plugin=ckan datastore set-permissions -c {{ckan_config_dir}}/config.ini | sudo -u postgres psql --set ON_ERROR_STOP=1
     chdir="{{ckan_venv}}/src/ckan"
   when: use_sudo and groups.has_key('local') and inventory_hostname in groups.local
   #when: create_datastore_db|changed or create_datastore_db_user|changed or create_ckan_db|changed or create_ckan_db_user|changed
@@ -125,7 +125,7 @@
 
 #TODO disable when not use_sudo?
 - name: create CKAN tables in database
-  shell: source {{ckan_venv}}/bin/activate && paster db init -c {{ckan_config_dir}}/config.ini
+  shell: source {{ckan_venv}}/bin/activate && {{ckan_venv}}/bin/python {{ckan_venv}}/bin/paster db init -c {{ckan_config_dir}}/config.ini
     chdir="{{ckan_venv}}/src/ckan"
   #sudo: yes
   #sudo_user: postgres
@@ -170,6 +170,6 @@
 - name: create crontab for sending activity stream emails
   cron: name="ckan_send_emails"
         minute={{ckan_email_flush_interval}}
-        job="echo $(date) >> {{ckan_log_dir}}/email_flush.log && echo '{}' | {{ckan_venv}}/bin/paster post -c {{ckan_config_dir}}/config.ini /api/action/send_email_notifications >> {{ckan_log_dir}}/email_flush.log && echo '' >> {{ckan_log_dir}}/email_flush.log"
+        job="echo $(date) >> {{ckan_log_dir}}/email_flush.log && echo '{}' | {{ckan_venv}}/bin/python {{ckan_venv}}/bin/paster post -c {{ckan_config_dir}}/config.ini /api/action/send_email_notifications >> {{ckan_log_dir}}/email_flush.log && echo '' >> {{ckan_log_dir}}/email_flush.log"
         user=root
   become: "{{use_sudo}}"
