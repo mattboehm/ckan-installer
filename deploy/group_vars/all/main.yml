@@ -182,6 +182,10 @@ install_odbc: True
 #======================#
 python_dep_packages:
   - libxml2
+  - openldap
+  - openldap-devel
+  - postgresql-devel
+  - postgresql-libs
 
 python_packages:
   - requests
