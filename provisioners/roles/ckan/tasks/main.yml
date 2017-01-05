@@ -172,4 +172,5 @@
         minute={{ckan_email_flush_interval}}
         job="echo $(date) >> {{ckan_log_dir}}/email_flush.log && echo '{}' | {{ckan_venv}}/bin/python {{ckan_venv}}/bin/paster post -c {{ckan_config_dir}}/config.ini /api/action/send_email_notifications >> {{ckan_log_dir}}/email_flush.log && echo '' >> {{ckan_log_dir}}/email_flush.log"
         user=root
-  become: "{{use_sudo}}"
+  become: yes
+  when: "{{use_sudo}}"
