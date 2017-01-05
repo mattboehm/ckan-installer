@@ -17,6 +17,7 @@ ckan_force_reinstall_plugins: False
 ckan_github_api_url: https://api.github.com/
 ckan_group: mesagent
 ckan_install_dir: "{{lookup('env', 'MESOS_SANDBOX')}}/ckan" #TODO where to install this?
+ckan_log_dir: "{{ckan_install_dir}}/logs"
 ckan_config_dir: "{{ckan_install_dir}}/config/default"
 ckan_user: mesagent
 ckan_venv: "{{ckan_install_dir}}/default"
