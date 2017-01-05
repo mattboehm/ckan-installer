@@ -186,6 +186,7 @@ python_dep_packages:
   - openldap-devel
   - postgresql-devel
   - postgresql-libs
+  - httpd
 
 python_packages:
   - requests
