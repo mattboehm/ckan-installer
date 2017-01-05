@@ -5,3 +5,7 @@
   when: groups.has_key('local') and inventory_hostname in groups.local and use_sudo
   become: yes
 
+- name: restart ckan apache
+  service: name=httpd state=restarted sleep=1
+  when: "{{apache_as_service}}"
+  become: yes

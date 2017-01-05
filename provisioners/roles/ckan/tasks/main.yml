@@ -114,7 +114,7 @@
   template: 
     src="config.ini.j2"
     dest="{{ckan_config_dir}}/config.ini"
-  notify: restart apache
+  notify: restart ckan apache
 
 - name: set read-only ckan user
   shell: source {{ckan_venv}}/bin/activate && paster --plugin=ckan datastore set-permissions -c {{ckan_config_dir}}/config.ini | sudo -u postgres psql --set ON_ERROR_STOP=1
@@ -143,7 +143,7 @@
     src="apache.wsgi.j2"
     dest="{{ckan_config_dir}}/apache.wsgi"
     mode=0755
-  notify: restart apache
+  notify: restart ckan apache
 
 #TODO also support uwsgi
 - name: create CKAN apache config file
@@ -151,7 +151,7 @@
     src="ckan.conf.j2"
     dest="{{apache_config_dir}}"
   become: "{{use_sudo}}"
-  notify: restart apache
+  notify: restart ckan apache
 
 - name: ensure correct ownership for all ckan directories
   file:
@@ -164,7 +164,7 @@
     - "{{ckan_install_dir}}"
     - "{{ckan_config_dir}}"
     - "{{ckan_log_dir}}"
-  notify: restart apache
+  notify: restart ckan apache
 
 #I think this was a feature started on that was never completed. For now, only enable it in dev environment
 - name: create crontab for sending activity stream emails

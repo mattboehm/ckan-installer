@@ -5,6 +5,7 @@ use_sudo: no
 
 #TODO: use MESOS_SANDBOX as base dir
 ace_force_reinstall: False
+apache_as_service: False
 apache_config_dir: "{{lookup('env', 'MESOS_SANDBOX')}}/apache_ckan.conf"
 ckan_create_user_via_web: True 
 ckan_datastore_db_name: "{{lookup('env', 'CKAN_DATASTORE_DB_NAME')}}"

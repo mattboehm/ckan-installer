@@ -19,6 +19,6 @@
       owner="{{ckan_user}}"
       group="{{ckan_group}}"
       recurse=true
-  notify: restart apache
+  notify: restart ckan apache
   become: yes
   when: "{{use_sudo}}"
