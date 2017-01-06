@@ -33,7 +33,7 @@
     state=directory
     owner="{{ckan_user}}"
     group="{{ckan_group}}"
-    mode=0755
+    mode=0777
     recurse=yes
   become: "{{use_sudo}}"
 
