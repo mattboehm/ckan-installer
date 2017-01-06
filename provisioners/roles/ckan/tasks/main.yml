@@ -37,6 +37,15 @@
     recurse=yes
   become: "{{use_sudo}}"
 
+- name: create apache wsgi socket dir
+  file:
+    path="{{apache_server_root}}"/run/wsgi
+    state=directory
+    owner="{{ckan_user}}"
+    group="{{ckan_group}}"
+    mode=0755
+    recurse=yes
+  become: "{{use_sudo}}"
 - debug:
     msg: "step 3 create the virtual env: {{ckan_venv}}"
 
