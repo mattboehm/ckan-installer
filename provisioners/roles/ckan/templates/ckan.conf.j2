@@ -3,7 +3,7 @@ LoadModule {{module.name}} {{module.path}}
 {% endfor %}
 
 ServerRoot {{apache_server_root}}
-WSGISocketPrefix run/wsgi
+WSGISocketPrefix run/wsgi/sock
 
 ErrorLog apache.error.log
 CustomLog apache.custom.log combined
