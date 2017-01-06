@@ -20,6 +20,7 @@ ckan_datastore_db_name: ckan_datastore
 
 # apache settings
 apache_port: 80
+apache_run_wsgi_daemon: True
 apache_server_root: "/etc/httpd"
 
 # solr settings
