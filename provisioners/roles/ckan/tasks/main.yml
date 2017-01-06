@@ -45,10 +45,13 @@
 
 #This version of python throws SNIMissingWarning unless an SNI extension to TLS is available
 - name: pip install ssl extensions
-  shell: "{{ckan_venv}}/bin/python -m pip install requests[security] pyopenssl ndg-httpsclient pyasn1"
+  shell: "{{ckan_venv}}/bin/python -m pip install requests[security]"
 
-- name: pip install python-ldap and mod_wsgi
-  shell: "{{ckan_venv}}/bin/python -m pip install python-ldap mod_wsgi"
+- name: pip install python-ldap
+  shell: "{{ckan_venv}}/bin/python -m pip install python-ldap"
+
+- name: pip install mod_wsgi
+  shell: "{{ckan_venv}}/bin/python -m pip install mod_wsgi"
 
 #Need to use python -m pip because when installing on mesos, you can't run pip directly due to the #! line being too long
 - name: pip install CKAN
