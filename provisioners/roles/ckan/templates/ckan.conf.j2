@@ -20,7 +20,7 @@ Listen {{apache_port}}
     # Deploy as a daemon (avoids conflicts between CKAN instances).
     #WSGIDaemonProcess ckan_default user={{ckan_user}} group={{ckan_group}} display-name=ckan_default processes=2 threads=15 
 
-    WSGIProcessGroup ckan_default
+    #WSGIProcessGroup ckan_default
     #XXX: This put logs relative to SERVER_ROOT, which is /etc/httpd for non-mesos
     ErrorLog ckan_default.error.log
     CustomLog ckan_default.custom.log combined
