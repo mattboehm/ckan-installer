@@ -187,6 +187,7 @@ python_dep_packages:
   - postgresql-devel
   - postgresql-libs
   - httpd
+  - httpd-devel
 
 python_packages:
   - requests
