@@ -1,4 +1,4 @@
-LoadModule wsgi_module /usr/local/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
+LoadModule wsgi_module {{ckan_venv}}/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
 WSGISocketPrefix /var/run/wsgi
 
 <VirtualHost 0.0.0.0:80>
