@@ -27,6 +27,16 @@
     recurse=yes
   become: "{{use_sudo}}"
 
+- name: create apache server root
+  file:
+    path="{{apache_server_root}}"
+    state=directory
+    owner="{{ckan_user}}"
+    group="{{ckan_group}}"
+    mode=0755
+    recurse=yes
+  become: "{{use_sudo}}"
+
 - debug:
     msg: "step 3 create the virtual env: {{ckan_venv}}"
 
@@ -41,24 +51,24 @@
     msg: "step 4: install requests[security] into virtualenv {{ckan_venv}}"
 
 - name: check python version
-  shell: "{{ckan_venv}}/bin/python --version"
+  shell: "source {{ckan_venv}}/bin/activate && python --version"
 
 #This version of python throws SNIMissingWarning unless an SNI extension to TLS is available
 - name: pip install ssl extensions
-  shell: "{{ckan_venv}}/bin/python -m pip install requests[security]"
+  shell: "source {{ckan_venv}}/bin/activate && python -m pip install requests[security]"
 
 - name: pip install python-ldap
-  shell: "{{ckan_venv}}/bin/python -m pip install python-ldap"
+  shell: "source {{ckan_venv}}/bin/activate && python -m pip install python-ldap"
 
 - name: pip install mod_wsgi
-  shell: "{{ckan_venv}}/bin/python -m pip install mod_wsgi"
+  shell: "source {{ckan_venv}}/bin/activate && python -m pip install mod_wsgi"
 
 #Need to use python -m pip because when installing on mesos, you can't run pip directly due to the #! line being too long
 - name: pip install CKAN
-  shell: "{{ckan_venv}}/bin/python -m pip install -e git+https://github.com/ckan/ckan.git@{{ckan_version_tag}}#egg=ckan"
+  shell: "source {{ckan_venv}}/bin/activate && python -m pip install -e git+https://github.com/ckan/ckan.git@{{ckan_version_tag}}#egg=ckan"
 
 - name: pip install CKAN requirements
-  shell: "PATH=\"/usr/pgsql-9.4/bin:/usr/pgsql-9.5/bin:$PATH\" {{ckan_venv}}/bin/python -m pip install -r {{ckan_venv}}/src/ckan/requirements.txt"
+  shell: "source {{ckan_venv}}/bin/activate && PATH=\"/usr/pgsql-9.4/bin:/usr/pgsql-9.5/bin:$PATH\" python -m pip install -r {{ckan_venv}}/src/ckan/requirements.txt"
 
 - name: check whether plugin has already been cloned
   stat:
@@ -74,7 +84,7 @@
 
 # TODO: Write a custom module that installs the custom plugins
 - name: pip install CKAN any custom plugins
-  shell: "{{ckan_venv}}/bin/python -m pip install -e git+{{item.0.url}}#egg={{item.0.egg_name}}"
+  shell: "source {{ckan_venv}}/bin/activate && python -m pip install -e git+{{item.0.url}}#egg={{item.0.egg_name}}"
   with_together:
     - "{{ckan_custom_plugins}}"
     - "{{check_plugin_path.results}}"
@@ -87,7 +97,7 @@
   register: plugins_requirements
 
 - name: pip install the requirements of custom plugins
-  shell: "{{ckan_venv}}/bin/python -m pip install -r {{ckan_venv}}/src/{{item.item.egg_name|regex_replace('_', '-')}}/requirements.txt"
+  shell: "source {{ckan_venv}}/bin/activate && python -m pip install -r {{ckan_venv}}/src/{{item.item.egg_name|regex_replace('_', '-')}}/requirements.txt"
   with_items: "{{plugins_requirements.results}}"
   when: item.stat.exists
 
@@ -120,7 +130,7 @@
   notify: restart ckan apache
 
 - name: set read-only ckan user
-  shell: source {{ckan_venv}}/bin/activate && {{ckan_venv}}/bin/python {{ckan_venv}}/bin/paster --plugin=ckan datastore set-permissions -c {{ckan_config_dir}}/config.ini | sudo -u postgres psql --set ON_ERROR_STOP=1
+  shell: source {{ckan_venv}}/bin/activate && python {{ckan_venv}}/bin/paster --plugin=ckan datastore set-permissions -c {{ckan_config_dir}}/config.ini | sudo -u postgres psql --set ON_ERROR_STOP=1
     chdir="{{ckan_venv}}/src/ckan"
   when: use_sudo and groups.has_key('local') and inventory_hostname in groups.local
   #when: create_datastore_db|changed or create_datastore_db_user|changed or create_ckan_db|changed or create_ckan_db_user|changed
@@ -128,7 +138,7 @@
 
 #TODO disable when not use_sudo?
 - name: create CKAN tables in database
-  shell: source {{ckan_venv}}/bin/activate && {{ckan_venv}}/bin/python {{ckan_venv}}/bin/paster db init -c {{ckan_config_dir}}/config.ini
+  shell: source {{ckan_venv}}/bin/activate && python {{ckan_venv}}/bin/paster db init -c {{ckan_config_dir}}/config.ini
     chdir="{{ckan_venv}}/src/ckan"
   #sudo: yes
   #sudo_user: postgres
