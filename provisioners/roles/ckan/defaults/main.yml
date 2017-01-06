@@ -18,6 +18,10 @@ ckan_db_name: ckan
 ckan_db_user: svc_ckan
 ckan_datastore_db_name: ckan_datastore
 
+# apache settings
+apache_port: 80
+apache_server_root: "/etc/httpd"
+
 # solr settings
 solr_url: http://127.0.0.1:8983/solr
 
