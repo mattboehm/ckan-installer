@@ -33,7 +33,7 @@
 
 - name: create apache wsgi socket dir
   file:
-    path="{{apache_server_root}}/run/wsgi"
+    path="{{apache_server_root}}/sockets"
     state=directory
     owner="{{ckan_user}}"
     group="{{ckan_group}}"
