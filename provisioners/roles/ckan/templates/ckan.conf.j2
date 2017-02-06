@@ -6,7 +6,7 @@ ServerRoot {{apache_server_root}}
 WSGISocketPrefix sockets/wsgi
 
 ErrorLog /dev/stderr
-CustomLog /dev/stdout
+CustomLog /dev/stdout combined
 
 Listen {{apache_port}}
 <VirtualHost 0.0.0.0:{{apache_port}}>
@@ -25,5 +25,5 @@ Listen {{apache_port}}
     {% endif %}
     #XXX: This put logs relative to SERVER_ROOT, which is /etc/httpd for non-mesos
     ErrorLog /dev/stderr
-    CustomLog /dev/stdout
+    CustomLog /dev/stdout combined
 </VirtualHost>
