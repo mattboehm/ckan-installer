@@ -14,7 +14,7 @@
 [DEFAULT]
 
 # WARNING: *THIS SETTING MUST BE SET TO FALSE ON A PRODUCTION ENVIRONMENT*
-debug = false
+debug = {{ckan_debug | bool | lower }}
 
 [server:main]
 use = egg:Paste#http
@@ -74,6 +74,9 @@ ckanext.ldap.email = mail
 {% endif %}
     
 ckanext.cfpb_sso.http_header = X-Remote-User
+
+#DN's to search for groups in
+ckanext.cfpb_ldap_query.base_dns = OU=CFPB Security Groups,DC=cfpb,DC=local|OU=CFPB Data Access Groups,OU=CFPB Security Groups,DC=cfpb,CD=local
 
 ## Authorization Settings
 

@@ -23,6 +23,7 @@ ckan_datastore_db_user: "{{lookup('env', 'CKAN_DATASTORE_DB_USER')}}"
 ckan_db_name: "{{lookup('env', 'CKAN_DB_NAME')}}"
 ckan_db_password: "{{lookup('env', 'CKAN_DB_PASSWORD')}}"
 ckan_db_user: "{{lookup('env', 'CKAN_DB_USER')}}"
+ckan_debug: "{{lookup('env', 'CKAN_DEBUG')|default('False', true)}}"
 ckan_file_storage_dir: "{{lookup('env', 'CKAN_FILE_STORAGE_DIR')|default('/home/work/ckan/uploads', true)}}"
 ckan_force_reinstall_plugins: False
 ckan_github_api_url: "{{lookup('env', 'CKAN_GITHUB_API')|default('https://api.github.com/', true)}}"
@@ -34,6 +35,7 @@ ckan_site_url: "{{lookup('env', 'CKAN_SITE_URL')}}/ckan"
 ckan_user: "{{lookup('env', 'CKAN_USER')|default('mesagent', true)}}"
 ckan_venv: "{{ckan_install_dir}}/default"
 ckan_version_tag: "{{lookup('env', 'CKAN_VERSION_TAG')|default('ckan-2.3', true)}}"
+ckan_git_url: "{{lookup('env', 'CKAN_GIT_URL')|default('git+https://github.com/ckan/ckan.git', true)}}"
 
 ckan_ldap_uri: "{{lookup('env', 'CKAN_LDAP_URI')}}"
 ckan_ldap_base_dn: "{{lookup('env', 'CKAN_LDAP_BASE_DN')}}"
@@ -51,7 +53,7 @@ ckan_reindex_solr: "{{lookup('env', 'CKAN_REINDEX_SOLR')|default(True, true)}}"
 ckan_custom_plugins:
   - name: ldap
     egg_name: ckanext_ldap
-    url: "https://github.com/tanderegg/ckanext-ldap@digest_md5"
-  - name: ckanext_cfpb_extrafields ckanext_cfpb_export ckanext_cfpb_import ckanext_cfpb_sso
+    url: "https://github.com/mattboehm/ckanext-ldap@get-ldap-connection"
+  - name: ckanext_cfpb_extrafields ckanext_cfpb_export ckanext_cfpb_import ckanext_cfpb_sso ckanext_cfpb_ldap_query
     egg_name: ckanext_cfpb_extrafields
     url: "{{lookup('env', 'CKAN_CFPB_PLUGIN_URL')|default('https://github.com/cfpb/ckanext-cfpb-extrafields', true)}}"
